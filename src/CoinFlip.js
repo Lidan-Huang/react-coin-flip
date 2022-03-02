@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import './CoinFlip.css';
 
 /** Flip coin and counts the head and tail image shows
  * 
@@ -13,21 +13,34 @@ import { useState } from "react";
  * App -> CoinFlip
  */
 
-// const props = [{head: head_url,}, {tail: tail_url}];
+
 
 function CoinFlip({props}) {
     const [image, setImage] = useState(null);
-
+    
+    let [headCount, setHeadCount] = useState(0);
+    let [tailCount, setTailCount] = useState(0);
     function handleClick() {
-        setImage(image === props[0].head ? props[1].tail : props[0].head);
+        if(image === props[0].head){
+            setHeadCount(headCount+1);
+        }
+        if(image === props[1].tail){
+            setTailCount(tailCount+1);
+        }
+        setImage(image === props[0].head ? props[1].tail: props[0].head);
+        
     }
 
     return(
         <div className="CoinFlip">
-            
-            <button className="CoinFlip_btn" onClick={handleClick}>
+            {image && <img className="CoinFlip-img" src={image}/>}
+            <button className="CoinFlip-btn" onClick={handleClick}>
                 Flip MEEE
             </button>
+            { <p>Head Count: {headCount}</p>}
+            { <p>Tail Count: {tailCount}</p>}
         </div>
     );
 }
+
+export default CoinFlip;
